@@ -81,9 +81,9 @@ async def on_ready():
     """ Set server admins """
     for guild in client.guilds:
         for member in guild.members:
-            if (member.name + member.discriminator) == 'RainbowDash8952':
+            if member.id == 225667885240942592:
                 slava = member
-            if (member.name + member.discriminator) == 'Магрипахарипулаевна0612':
+            if member.id == 315531935218794497:
                 vlad = member
 
 
