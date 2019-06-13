@@ -18,6 +18,11 @@ vlad = None
 slava = None
 
 
+""" Bots """
+roleBot = None
+loveBot = None
+
+
 """ Discord client object """
 client = discord.Client()
 
@@ -33,6 +38,8 @@ async def on_ready():
     global welcome
     global slava
     global vlad
+    global roleBot
+    global loveBot
 
     """ Information about bot """
     print('Logged in as')
@@ -42,49 +49,35 @@ async def on_ready():
     
 
     """ Information about server """
-    for guild in client.guilds:
-        if guild.id == 392581230891106306:
-            pupki = guild
+    pupki = client.get_guild(392581230891106306)
     print('Server: ' + pupki.name)
     print(pupki.id)
     print('-----------')
 
 
     """ Set '4atik' channel """
-    for guild in client.guilds:
-        for chat in guild.channels:
-            if chat.id == 392581231407267841:
-                chatik = chat
+    chatik = client.get_channel(392581231407267841)
     
 
     """ Set 'bot_spam' channel """
-    for guild in client.guilds:
-        for chat in guild.channels:
-            if chat.id == 587554944681246730:
-                botSpam = chat
+    botSpam = client.get_channel(587554944681246730)
 
 
     """ Set 'bot_music' channel """
-    for guild in client.guilds:
-        for chat in guild.channels:
-            if chat.id == 403992935441498122:
-                botMusic = chat
+    botMusic = client.get_channel(403992935441498122)
 
 
     """ Set 'welcome' channel """
-    for guild in client.guilds:
-        for chat in guild.channels:
-            if chat.id == 587644619995480065:
-                welcome = chat
+    welcome = client.get_channel(587644619995480065)
 
 
     """ Set server admins """
-    for guild in client.guilds:
-        for member in guild.members:
-            if member.id == 225667885240942592:
-                slava = member
-            if member.id == 315531935218794497:
-                vlad = member
+    slava = client.get_user(225667885240942592)
+    vlad = client.get_user(315531935218794497)
+
+    """ Set bots """
+    roleBot = client.get_user(587562930892046338)
+    loveBot = client.get_user(582161861647007745)
 
 
 @client.event
@@ -115,6 +108,46 @@ async def on_message(message):
         """ Respond to :AYAA: emoji """
         if message.content == '<:AYAA:478802282960519170>':
             await message.channel.send('<:AYAYA:478803483223523341>')
+            return
+        
+        if message.content == '.help':
+            await message.channel.send('Пожалуйста, не пишите бот-команды в этом канале, для бот-команд есть каналлы ' + botSpam.mention + ' и ' + botMusic.mention)
+            return
+    
+
+    if message.channel == botMusic:
+        if message.content == '.help':
+            await botMusic.send('''Этот канал предназначен для заказа музыки.
+Команды для управления музыкальным ботом:
+
+!play <Название песни/ссылка на песню в youtube> (сокращенно -!p) - заказывает музыку
+!skip (сокращенно - !s) - прекращает играть текущий трек
+!np - показывает какой сейчас трек играет бот 
+!pause - ставит трек на паузу
+!resume - снимает паузу''')
+            return
+    
+    if message.channel == botSpam:
+        if message.content == '.роль' or message.content == '.help':
+            await botSpam.send ('''Используйте команду ".роль <название роли>" для получения общедоступных ролей.
+Используйте команду ".удалить роль <название роли>" для удаления общедоступных ролей.
+
+Доступные для получения/удаления роли:
+
+Анимечъник - если вы любите аниме (нельзя получить если вы АнимуХейтер)
+АнимуХейтер - если вы хейтите аниме (нельзя получить если вы Анимечъник)
+Работяги - если вы считаете себя истиным работягой
+АФКашник - если вы любите афкашить в дискорде
+Знатоки - если вы считаете себя знатаком
+Под Владиславом - специальная роль, если вы хотите оказаться под Владиславом
+
+Для получения ролей, которые здесь не указаны - обратитесь к администраторам сервера
+
+Пример команды для получения роли Работяги:
+.роль Работяги
+
+Пример команды для удаления роли Работяги:
+.удалить роль Работяги''')
             return
 
 
