@@ -152,4 +152,4 @@ async def on_message(message):
 
 
 """ BOT TOKEN """
-client.run(botToken.DICORD_BOT_TOKEN)
+client.run(botToken.DISCORD_BOT_TOKEN)
