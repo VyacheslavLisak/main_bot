@@ -86,7 +86,8 @@ async def on_message(message):
         
     #Respond to bots' commands in general channels
     if message.channel != botSpam and message.channel != botMusic:
-        if message.content.startswith('.help'):
+        botsPrefixes = ["!", ">", ";;", "."]
+        if message.content.startswith(tuple(botsPrefixes)):
             await message.channel.send('Пожалуйста, не пишите бот-команды в этом канале, для бот-команд есть каналлы ' + botSpam.mention + ' и ' + botMusic.mention)
             return
 
