@@ -48,21 +48,11 @@ async def on_ready():
     #Set server by ID
     pupki = client.get_guild(392581230891106306)
 
-    #Set '4atik' channel
+    #Set channels
     chatik = client.get_channel(392581231407267841)
-    
-
-    #Set 'bot_spam' channel
     botSpam = client.get_channel(587554944681246730)
-
-
-    #Set 'bot_music' channel
     botMusic = client.get_channel(403992935441498122)
-
-
-    #Set 'news' channel
     news = client.get_channel(405447650062893056)
-
 
     #Set server admins
     slava = client.get_user(225667885240942592)
