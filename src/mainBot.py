@@ -17,6 +17,7 @@ pupki = None
 
 #Channels
 chatik = None
+ownersChannel = None
 botSpam = None
 botMusic = None
 news = None
@@ -38,6 +39,7 @@ async def on_ready():
     #Global variables
     global pupki
     global chatik
+    global ownersChannel
     global botSpam
     global botMusic
     global news
@@ -50,6 +52,7 @@ async def on_ready():
 
     #Set channels
     chatik = client.get_channel(392581231407267841)
+    ownersChannel = client.get_channel(834936205119717397)
     botSpam = client.get_channel(587554944681246730)
     botMusic = client.get_channel(403992935441498122)
     news = client.get_channel(405447650062893056)
@@ -69,6 +72,17 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
+    #Global variables
+    global pupki
+    global chatik
+    global ownersChannel
+    global botSpam
+    global botMusic
+    global news
+    global vlad
+    global slava
+    global roleBot
+
     #If sender == bot -> do nothing
     if message.author == client.user:
         return
@@ -85,7 +99,7 @@ async def on_message(message):
             return
         
     #Respond to bots' commands in general channels
-    if message.channel != botSpam and message.channel != botMusic:
+    if message.channel != botSpam and message.channel != botMusic and message.channel != ownersChannel:
         botsPrefixes = ["!", ">", ";;", "."]
         if message.content.startswith(tuple(botsPrefixes)):
             await message.channel.send('Пожалуйста, не пишите бот-команды в этом канале, для бот-команд есть каналлы ' + botSpam.mention + ' и ' + botMusic.mention)
