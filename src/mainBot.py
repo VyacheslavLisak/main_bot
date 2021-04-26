@@ -53,7 +53,7 @@ async def on_ready():
     #Set channels
     chatik = client.get_channel(392581231407267841)
     ownersChannel = client.get_channel(834936205119717397)
-    botSpam = client.get_channel(587554944681246730)
+    botSpam = client.get_channel(836351762398052382)
     botMusic = client.get_channel(403992935441498122)
     news = client.get_channel(405447650062893056)
 
