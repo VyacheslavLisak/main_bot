@@ -5,6 +5,7 @@ import logging.config
 from os import path
 import botToken
 import helloMessage
+from embedded_messages import embedded_messages_templates
 
 LOGGING_CONFIG = path.join(path.dirname(path.abspath(__file__)), 'logger.conf') 
 logging.config.fileConfig(LOGGING_CONFIG)
@@ -21,6 +22,7 @@ ownersChannel = None
 botSpam = None
 botMusic = None
 news = None
+msgFromBot = None
 
 #Admins
 vlad = None
@@ -46,6 +48,7 @@ async def on_ready():
     global vlad
     global slava
     global roleBot
+    global msgFromBot
 
     #Set server by ID
     pupki = client.get_guild(392581230891106306)
@@ -56,6 +59,7 @@ async def on_ready():
     botSpam = client.get_channel(836351762398052382)
     botMusic = client.get_channel(403992935441498122)
     news = client.get_channel(405447650062893056)
+    msgFromBot = client.get_channel(845006038884810763)
 
     #Set server admins
     slava = client.get_user(225667885240942592)
@@ -82,6 +86,7 @@ async def on_message(message):
     global vlad
     global slava
     global roleBot
+    global msgFromBot
 
     #If sender == bot -> do nothing
     if message.author == client.user:
@@ -97,9 +102,28 @@ async def on_message(message):
         if message.content == '<:AYAA:478802282960519170>':
             await message.channel.send('<:AYAYA:478803483223523341>')
             return
+
+    # Send message via main bot
+    if message.channel == msgFromBot:
+        if message.content.startswith('.info'):
+            info = embedded_messages_templates.set_information_embed(message.content.split(' ', 1)[1])
+            await chatik.send(embed=info)
+            return
         
+        elif message.content.startswith('.notification'):
+            notification = embedded_messages_templates.set_notification_embed(message.content.split(' ', 1)[1])
+            await chatik.send(embed=notification)
+            return
+        
+        elif message.content.startswith('.msg'):
+            msg = discord.Embed()
+            msg.color = 49151
+            msg.description = message.content.split(' ', 1)[1]
+            await chatik.send(embed=msg)
+            return
+
     #Respond to bots' commands in general channels
-    if message.channel != botSpam and message.channel != botMusic and message.channel != ownersChannel:
+    if message.channel != botSpam and message.channel != botMusic and message.channel != ownersChannel and message.channel != msgFromBot:
         botsPrefixes = ["!", ">", ";;", "."]
         if message.content.startswith(tuple(botsPrefixes)):
             await message.channel.send('Пожалуйста, не пишите бот-команды в этом канале, для бот-команд есть каналлы ' + botSpam.mention + ' и ' + botMusic.mention)
