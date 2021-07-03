@@ -6,5 +6,5 @@ __pycache__/
 *.log
 
 # Ignore bot's token
-botToken.py
-src/botToken.py
+bot_token.py
+src/bot_token.py
