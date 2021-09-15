@@ -6,7 +6,6 @@ env:
   LOGIN: ${{ secrets.DOCKER_LOGIN }}
   NAME: ${{ secrets.DOCKER_NAME }}
 jobs:
-  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Login to docker.io
