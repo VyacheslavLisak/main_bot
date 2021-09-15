@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  LOGIN: ${{ secrets.DOCKER_LOGIN }}
-  NAME: ${{ secrets.DOCKER_NAME }}
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -25,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ secrets.DOCKER_LOGIN }}/${{ secrets.DOCKER_NAME }}
+          images: pupokpsa/main_bot
       
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
