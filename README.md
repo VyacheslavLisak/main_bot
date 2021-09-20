@@ -1,3 +1,2 @@
-Add the "botToken.py" file to the "src" directory with the following contents:
+"botToken.py" file adding via Github Actions when building container for Docker Hub
 
-DISCORD_BOT_TOKEN = '<YOUR_DISCORD_BOT_TOKEN>'
