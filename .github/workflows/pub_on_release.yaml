@@ -29,8 +29,8 @@ jobs:
       #    pip install requests
       
       - name: Create bot_token.py
-        env:
-          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
+        #env:
+        #  WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           echo DISCORD_BOT_TOKEN = ${{ secrets.BOT_TOKEN }} > src/bot_token.py
         #  python3 webhook.py bot_token.py has been created
@@ -39,6 +39,7 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
           data: '{"content":"bot_token.py has been created"}'
 
       - name: Log in to Docker Hub
@@ -57,6 +58,7 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
           data: '{"content":"Successfully logged in to the Docker hub"}'
 
       - name: Extract metadata (tags, labels) for Docker
@@ -77,6 +79,7 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
           data: '{"content":"Container has been builded and pushed to the Docker hub"}'
 
       #- name: Send info on Discord channel
