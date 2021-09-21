@@ -20,10 +20,10 @@ jobs:
     {
       "color": 1127128,
       "author": 
-        {
+      {
         "name": "Github Actions",
         "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-        },
+      },
       "description": "Starting building docker container and pushing it to docker hub"
     }
   ]
