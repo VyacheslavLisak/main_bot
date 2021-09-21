@@ -32,6 +32,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PWD }}
+        
+      - name: Send info on Discord channel
         run: |
           python3 webhook.py Successfully logged in to the Docker hub
 
@@ -48,5 +50,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      -name: Send info on Discord channel
         run: |
           python3 webhook.py Container has benn builded and pushed to the Docker hub
