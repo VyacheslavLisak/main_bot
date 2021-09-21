@@ -12,16 +12,22 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       
+      - name: Configure webhooks
+        run: |
+        sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
+        python3 webhook.py Webhookfile has been configured
+
       - name: Create bot_token.py
         run: |
           echo DISCORD_BOT_TOKEN = ${{ secrets.BOT_TOKEN }} > src/bot_token.py
-          ls src/
+          python3 webhook.py bot_token.py has been created
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PWD }}
+        run: python3 webhook.py Successfully logged in to the Docker hub
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -36,3 +42,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+        run: python3 webhook.py Container has benn builded and pushed to the Docker hub
