@@ -2,7 +2,7 @@ import requests
 import sys
 
 if __name__ == "__main__":
-    WEBHOOK_URL = "DISCORD_WEBHOOK_URL"
+    WEBHOOK_URL = DISCORD_WEBHOOK_URL
     json_content = '```'
     first_param = True
     for param in sys.argv:
