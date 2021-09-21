@@ -23,6 +23,11 @@ jobs:
       #    's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g'
       #    python webhook.py Webhookfile has been configured
 
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
       - name: Create bot_token.py
         env:
           WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
