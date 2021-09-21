@@ -18,7 +18,7 @@ jobs:
           DISCORD_EMBEDS:  '{
   "embeds": [
     {
-      "color": 1127128
+      "color": 1127128,
       "author": 
         {
         "name": "Github Actions",
