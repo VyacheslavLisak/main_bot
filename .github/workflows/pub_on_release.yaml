@@ -15,7 +15,19 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS:  '{ "embeds": [ { "color": 1127128, "description": "Starting building docker container and pushing it to docker hub" } ] }'
+          DISCORD_EMBEDS:  '{
+  "embeds": [
+    {
+      "color": 1127128
+      "author": 
+        {
+        "name": "Github Actions",
+        "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        },
+      "description": "Starting building docker container and pushing it to docker hub"
+    }
+  ]
+}'
         uses: Ilshidur/action-discord@master
         #with:
         #  args: '```Starting building docker container and pushing it to docker hub```'
@@ -66,18 +78,18 @@ jobs:
           args: '```Container has been builded and pushed to Docker hub```'
 
 
-#{
-#  "embeds": [
-#    {
-#      "color": 1127128
-#      "author": 
-#        {
-#        "name": "Github Actions",
-#        "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-#        },
-#      "description": "Starting building docker container and pushing it to docker hub"
-#    }
-#  ]
-#}
+#'{
+ # "embeds": [
+  #  {
+   #   "color": 1127128
+    #  "author": 
+     #   {
+      #  "name": "Github Actions",
+       # "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        #},
+      #"description": "Starting building docker container and pushing it to docker hub"
+    #}
+  #]
+#}'
 
 #{"embeds":[{"color": 1127128, "author":{"name": "Github Actions", "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"}, "description": "Starting building docker container and pushing it to docker hub"}]}
