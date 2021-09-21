@@ -15,7 +15,7 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS:  '{
+          DISCORD_EMBEDS:  '[{
                               "color": 1127128,
                               "author": 
                               {
@@ -23,7 +23,7 @@ jobs:
                                 "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                               },
                               "description": "Starting building docker container and pushing it to the Docker hub"
-                            }'
+                            }]'
         uses: Ilshidur/action-discord@master
         #with:
         #  args: '```Starting building docker container and pushing it to docker hub```'
