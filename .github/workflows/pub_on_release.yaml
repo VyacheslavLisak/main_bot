@@ -19,8 +19,8 @@ jobs:
 
       - name: Configure webhooks
         run: |
-        sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
-        python webhook.py Webhookfile has been configured
+          sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
+          python webhook.py Webhookfile has been configured
 
       - name: Create bot_token.py
         run: |
@@ -32,7 +32,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PWD }}
-        run: python3 webhook.py Successfully logged in to the Docker hub
+        run: |
+          python3 webhook.py Successfully logged in to the Docker hub
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -47,4 +48,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-        run: python3 webhook.py Container has benn builded and pushed to the Docker hub
+        run: |
+          python3 webhook.py Container has benn builded and pushed to the Docker hub
