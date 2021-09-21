@@ -15,27 +15,21 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_EMBEDS: {"embeds":[{"color": 1127128, "author":{"name": "Github Actions", "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"}, "description": "Starting building docker container and pushing it to docker hub"}]}
         uses: Ilshidur/action-discord@master
-        with:
-          args: 'Starting building docker container and pushing it to docker hub'
+        #with:
+        #  args: '```Starting building docker container and pushing it to docker hub```'
 
       - name: Create bot_token.py
         run: |
           echo DISCORD_BOT_TOKEN = ${{ secrets.BOT_TOKEN }} > src/bot_token.py
-     
-      #- name: Send webhook on Discord channel
-      #  uses: distributhor/workflow-webhook@v2
-      #  env:
-      #    webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-      #    webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
-      #    data: '{"content":"bot_token.py has been created"}'
 
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'bot_token.py has been created'
+          args: '```bot_token.py has been created```'
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -48,7 +42,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Successfully logged in to Docker hub'
+          args: '```Successfully logged in to Docker hub```'
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -69,4 +63,21 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Container has been builded and pushed to Docker hub'
+          args: '```Container has been builded and pushed to Docker hub```'
+
+
+#{
+#  "embeds": [
+#    {
+#      "color": 1127128
+#      "author": 
+#        {
+#        "name": "Github Actions",
+#        "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+#        },
+#      "description": "Starting building docker container and pushing it to docker hub"
+#    }
+#  ]
+#}
+
+#{"embeds":[{"color": 1127128, "author":{"name": "Github Actions", "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"}, "description": "Starting building docker container and pushing it to docker hub"}]}
