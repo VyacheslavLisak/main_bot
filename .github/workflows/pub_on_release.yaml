@@ -17,12 +17,15 @@ jobs:
         with:
           python-version: 3.8 #install the python needed
 
-      - name: Configure webhooks
-        run: |
-          sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
-          python webhook.py Webhookfile has been configured
+      #- name: Configure webhooks
+      #  run: |
+      #    sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
+      #    's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g'
+      #    python webhook.py Webhookfile has been configured
 
       - name: Create bot_token.py
+        env:
+          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           echo DISCORD_BOT_TOKEN = ${{ secrets.BOT_TOKEN }} > src/bot_token.py
           python3 webhook.py bot_token.py has been created
@@ -34,6 +37,8 @@ jobs:
           password: ${{ secrets.DOCKER_PWD }}
         
       - name: Send info on Discord channel
+        env:
+          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           python3 webhook.py Successfully logged in to the Docker hub
 
@@ -52,5 +57,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Send info on Discord channel
+        env:
+          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           python3 webhook.py Container has benn builded and pushed to the Docker hub
