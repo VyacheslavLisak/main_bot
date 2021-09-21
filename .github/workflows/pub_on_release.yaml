@@ -15,6 +15,7 @@ jobs:
       - name: Configure webhooks
         run: |
         sed -i 's/DISCORD_WEBHOOK_URL/${{ secrets.DISCORD_WEBHOOK }}/g' webhook.py
+        apt install python3.8
         python webhook.py Webhookfile has been configured
 
       - name: Create bot_token.py
