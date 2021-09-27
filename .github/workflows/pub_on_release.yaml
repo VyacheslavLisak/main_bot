@@ -21,7 +21,7 @@ jobs:
 
       - name: Create bot_token.py
         run: |
-          echo DISCORD_BOT_TOKEN = "${{ secrets.BOT_TOKEN }}" > src/bot_token.py
+          echo ${{ secrets.BOT_TOKEN }} > src/bot_token.py
 
       - name: Discord notification
         env:
