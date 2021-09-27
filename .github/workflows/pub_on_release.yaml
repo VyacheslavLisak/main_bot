@@ -22,7 +22,7 @@ jobs:
 
       - name: Create bot_token.py
         run: |
-          echo ${{ secrets.BOT_TOKEN }} > src/bot_token.py
+          echo "${{ secrets.BOT_TOKEN }}" > src/bot_token.py
 
       - name: Discord notification
         env:
