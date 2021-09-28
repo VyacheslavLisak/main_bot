@@ -63,3 +63,13 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: '```Container has been builded and pushed to Docker hub```'
+
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yml
+          directory: ./
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [srv]
+            ${{secrets.SRV_IPS}}

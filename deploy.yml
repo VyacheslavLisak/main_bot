@@ -1,0 +1,24 @@
+---
+- hosts: srv
+  tasks:
+    - name: Stop main_bot container
+      shell: |
+        sudo docker stop main_bot
+      
+    - name: Remove container
+      shell: |
+        sudo docker rm -f main_bot
+    
+    - name: Pull new image from Docker hub
+      shell: |
+        sudo docker pull pupokpsa/main_bot:latest
+
+    - name: Remove old images
+      shell: |
+        sudo docker rmi $(sudo docker images -f "dangling=true" -q) --force
+
+  handlers:
+    - name: Start new container with name
+      shell: |
+        sudo docker run -d --name main_bot pupokpsa/main_bot:latest
+ 
