@@ -17,7 +17,6 @@
       shell: |
         sudo docker rmi $(sudo docker images -f "dangling=true" -q) --force
 
-  handlers:
     - name: Start new container with name
       shell: |
         sudo docker run -d --name main_bot pupokpsa/main_bot:latest
