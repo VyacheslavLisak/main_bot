@@ -25,6 +25,7 @@ botSpam = None
 botMusic = None
 news = None
 msgFromBot = None
+new_world_new = None
 
 # Admins
 vlad = None
@@ -32,6 +33,9 @@ slava = None
 
 # Bots
 roleBot = None
+
+# Roles
+new_world_role = None
 
 # Discord client object
 client = discord.Client()
@@ -51,6 +55,8 @@ async def on_ready():
     global slava
     global roleBot
     global msgFromBot
+    global new_world_new
+    global new_world_role
 
     # Set server by ID
     pupki = client.get_guild(392581230891106306)
@@ -62,10 +68,14 @@ async def on_ready():
     botMusic = client.get_channel(403992935441498122)
     news = client.get_channel(405447650062893056)
     msgFromBot = client.get_channel(845006038884810763)
+    new_world_new = client.get_channel(895417275182645288)
 
     # Set server admins
     slava = client.get_user(225667885240942592)
     vlad = client.get_user(315531935218794497)
+
+    # Set roles
+    new_world_role = pupki.get_role(895020890352390234)
 
     # Set bots
     roleBot = client.get_user(587562930892046338)
@@ -73,6 +83,56 @@ async def on_ready():
     # Information about bot
     logger.info('Logged in as:    ' + client.user.name)
     logger.info('On server:       ' + pupki.name)
+
+
+@client.event
+async def on_raw_reaction_add(payload):
+
+    # User added reaction to rules message -> give access to the server
+    if payload.channel_id == new_world_new.id:
+        user = await pupki.fetch_member(payload.user_id)
+        logger.info(
+            'Reaction has been added by ' 
+            + user.name + '#' + user.discriminator)
+        try:
+            await user.add_roles(new_world_role)
+            logger.info(
+                'Access was granted to ' 
+                + user.name + '#' + user.discriminator)
+            logger.info(
+                '------------------------------------------------------------')
+        except:
+            logger.error(
+                "Access wasn't granted to " 
+                + user.name + '#' + user.discriminator)
+            logger.info(
+                '------------------------------------------------------------')
+        return
+
+
+@client.event
+async def on_raw_reaction_remove(payload):
+
+    # User removed reaction from rules message -> revoke access to the server
+    if payload.channel_id == new_world_new.id:
+        user = await pupki.fetch_member(payload.user_id)
+        logger.info(
+            'Reaction has been deleted by ' 
+            + user.name + '#' + user.discriminator)
+        try:
+            await user.remove_roles(new_world_role)
+            logger.info(
+                'Access was canceled to ' 
+                + user.name + '#' + user.discriminator)
+            logger.info(
+                '------------------------------------------------------------')
+        except:
+            logger.error(
+                "Access wasn't canceled to" 
+                + user.name + '#' + user.discriminator)
+            logger.info(
+                '------------------------------------------------------------')
+        return
 
 
 @client.event
